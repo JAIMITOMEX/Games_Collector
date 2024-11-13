@@ -7,12 +7,12 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning the repository...'
-                git url: "${REPO_URL}", branch: 'main'
+                git url: "https://github.com/JAIMITOMEX/Games_Collector.git", branch: 'main'
             }
         }
         stage('Build Docker Image') {
             steps {
-                echo 'Building Docker images...'
+                echo 'Building Docker image...'
                 sh 'docker compose build'
             }
         }
@@ -25,13 +25,7 @@ pipeline {
         stage('Health Check') {
             steps {
                 echo 'Performing health check on application...'
-                sh 'curl -f http://localhost:3000 || exit 1'
-            }
-        }
-        stage('Run Tests') {
-            steps {
-                echo 'Running tests...'
-                sh 'docker compose exec nombre_del_servicio pytest || true'  // Ajusta según las pruebas disponibles
+                sh 'curl -f http://3.16.115.98:3000 || exit 1'
             }
         }
     }
@@ -40,12 +34,5 @@ pipeline {
             echo 'Cleaning up...'
             sh 'docker compose down'
         }
-        success {
-            echo 'Pipeline completed successfully.'
-        }
-        failure {
-            echo 'Pipeline failed. Please check the logs for details.'
-        }
     }
 }
-
