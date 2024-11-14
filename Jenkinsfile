@@ -25,7 +25,7 @@ pipeline {
         stage('Health Check') {
             steps {
                 echo 'Performing health check on application...'
-                sh 'curl -f http://3.16.115.98:3000 || exit 1'
+                sh 'curl -f http://127.0.0.1:3000 || exit 1'
             }
         }
     }
