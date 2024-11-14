@@ -13,9 +13,8 @@ services:
     depends_on:
       - mysql
     command: sh -c "sleep 30 && flask run --host=0.0.0.0 --port=3000"
-    networks:
-      - app-network
-      - local-network
+    volumes:
+      - .:/app
 
   mysql:
     image: mysql:8.0
@@ -34,17 +33,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - app-network
-      - local-network
 
 volumes:
   mysql_data:
-
-networks:
-  app-network:
-    external: true
-    name: app-network
-
-  local-network:
-    driver: bridge
