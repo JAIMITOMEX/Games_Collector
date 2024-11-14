@@ -23,11 +23,16 @@ pipeline {
             }
         }
         stage('Health Check') {
-            steps {
-                echo 'Performing health check on application...'
-                sh 'curl -f http://127.0.0.1:3000 || exit 1'
+            steps {    
+                echo 'Waiting for the application to be ready...'
+                script {
+                    sleep(40)  // Tiempo en segundos para asegurarte de que la app esté lista
+                }
+            echo 'Performing health check on application...'
+            sh 'curl -f http://127.0.0.1:3000'
             }
         }
+
     }
     post {
         always {
